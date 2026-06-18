@@ -1,6 +1,6 @@
 numpy  
 pandas  
-python-binance  
+ccxt  
 python-telegram-bot  
 schedule  
 requests 
