@@ -6,17 +6,19 @@ BASE = "https://fapi.binance.com"
 
 def get_filtered_symbols():
     url = f"{BASE}/fapi/v1/ticker/24hr"
-    data = requests.get(url).json()
+    response = requests.get(url)
+    data = response.json()
     symbols = []
-    for t in data:
-        sym = t['symbol']
-        if not sym.endswith('USDT'):
-            continue
-        try:
-            if float(t['quoteVolume']) >= 1_000_000:
-                symbols.append(sym)
-        except:
-            continue
+    if isinstance(data, list):
+        for t in data:
+            sym = t.get('symbol', '')
+            if not sym.endswith('USDT'):
+                continue
+            try:
+                if float(t.get('quoteVolume', 0)) >= 1_000_000:
+                    symbols.append(sym)
+            except:
+                continue
     return symbols
 
 def get_klines(symbol, interval="1d", limit=150):
