@@ -29,4 +29,4 @@ def get_klines(symbol, interval="1d", limit=150):
     ])
     for col in ['open','high','low','close','volume']:
         df[col] = df[col].astype(float)
-    return df
+    return df#updated 
