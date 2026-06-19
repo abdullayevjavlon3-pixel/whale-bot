@@ -3,10 +3,9 @@ import requests
 import pandas as pd
 
 SPOT_BASE = "https://api.binance.com"
-FUTURES_BASE = "https://fapi.binance.com"
 
 def get_filtered_symbols():
-    url = f"{FUTURES_BASE}/fapi/v1/ticker/24hr"
+    url = f"{SPOT_BASE}/api/v3/ticker/24hr"
     response = requests.get(url, timeout=10)
     data = response.json()
     print(f"API javob turi: {type(data)}, uzunlik: {len(data) if isinstance(data, list) else 'dict'}")
@@ -27,7 +26,7 @@ def get_filtered_symbols():
     return symbols
 
 def get_klines(symbol, interval="1d", limit=150):
-    url = f"{FUTURES_BASE}/fapi/v1/klines"
+    url = f"{SPOT_BASE}/api/v3/klines"
     params = {"symbol": symbol, "interval": interval, "limit": limit}
     data = requests.get(url, params=params, timeout=10).json()
     df = pd.DataFrame(data, columns=[
@@ -36,4 +35,4 @@ def get_klines(symbol, interval="1d", limit=150):
     ])
     for col in ['open','high','low','close','volume']:
         df[col] = df[col].astype(float)
-    return df
+    return
