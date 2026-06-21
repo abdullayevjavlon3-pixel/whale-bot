@@ -11,9 +11,9 @@ from config import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID
 seen_signals = {"15m": set(), "1h": set(), "4h": set()}
 
 TIMEFRAMES = {
-    "15m": 100,   # 15 daqiqa
-    "1h":  100,   # 1 soat
-    "4h":  100,   # 4 soat
+    "15m": 500,   # 15 daqiqa
+    "1h":  500,   # 1 soat
+    "4h":  500,   # 4 soat
 }
 
 async def scan_timeframe(interval: str, limit: int, symbols: list):
