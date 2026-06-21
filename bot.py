@@ -1,6 +1,6 @@
 # bot.py
 import asyncio
-from telegram import Bot
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from datetime import datetime
 from config import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID
 
@@ -24,7 +24,11 @@ async def send_signal(symbol: str, data: dict):
         f"━━━━━━━━━━━━━━━━\n"
         f"Birja    : Binance SPOT"
     )
-    await bot.send_message(chat_id=int(TELEGRAM_CHAT_ID), text=text)
+    tv_url = f"https://www.tradingview.com/chart/?symbol=BINANCE:{symbol}"
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("📈 TradingView'da ko'rish", url=tv_url)]
+    ])
+    await bot.send_message(chat_id=int(TELEGRAM_CHAT_ID), text=text, reply_markup=keyboard)
 
 async def send_status(msg: str):
     await bot.send_message(chat_id=int(TELEGRAM_CHAT_ID), text=msg)
